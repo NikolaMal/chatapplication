@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Chat Application</string>
+    <string name="LoginUser">Username</string>
+    <string name="LoginPass">Password</string>
+    <string name="Login">Login</string>
+    <string name="Register">Register</string>
+    <string name="Register_firstname">First name</string>
+    <string name="Register_lastname">Last name</string>
+    <string-array name="Register_genderarray">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string name="Register_gender">Gender</string>
+    <string name="Register_email">johndoe@gmail.com</string>
+    <string name="Register_notifications">Accept notifications</string>
+    <string name="Register_birthdate">Birth date</string>
+    <string name="Contact_friend">My friend</string>
+    <string name="Contact_logout">Logout</string>
+    <string name="Message_message">message text</string>
+    <string name="Message_send">Send</string>
+</resources>
