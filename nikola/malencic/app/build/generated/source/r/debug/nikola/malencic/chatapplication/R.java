@@ -444,37 +444,43 @@ public final class R {
   public static final class drawable {
     public static final int ic_launcher_background=0x7f040001;
     public static final int ic_launcher_foreground=0x7f040002;
+    public static final int ic_send_black_24dp=0x7f040003;
   }
   public static final class id {
     public static final int all=0x7f050000;
     public static final int basic=0x7f050001;
     public static final int chains=0x7f050002;
-    public static final int contact_friendtext=0x7f050003;
+    public static final int contact_list=0x7f050003;
     public static final int contact_logoutbutton=0x7f050004;
-    public static final int login_loginbutton=0x7f050005;
-    public static final int login_password=0x7f050006;
-    public static final int login_registerbutton=0x7f050007;
-    public static final int login_username=0x7f050008;
-    public static final int message_logout=0x7f050009;
-    public static final int message_messagetext=0x7f05000a;
-    public static final int message_sendbutton=0x7f05000b;
-    public static final int none=0x7f05000c;
-    public static final int packed=0x7f05000d;
-    public static final int parent=0x7f05000e;
-    public static final int register_datepicker=0x7f05000f;
-    public static final int register_email=0x7f050010;
-    public static final int register_password=0x7f050011;
-    public static final int register_registerbutton=0x7f050012;
-    public static final int register_username=0x7f050013;
-    public static final int spread=0x7f050014;
-    public static final int spread_inside=0x7f050015;
-    public static final int wrap=0x7f050016;
+    public static final int itemInitial=0x7f050005;
+    public static final int itemName=0x7f050006;
+    public static final int itemSend=0x7f050007;
+    public static final int login_loginbutton=0x7f050008;
+    public static final int login_password=0x7f050009;
+    public static final int login_registerbutton=0x7f05000a;
+    public static final int login_username=0x7f05000b;
+    public static final int message_label=0x7f05000c;
+    public static final int message_logout=0x7f05000d;
+    public static final int message_messagetext=0x7f05000e;
+    public static final int message_sendbutton=0x7f05000f;
+    public static final int none=0x7f050010;
+    public static final int packed=0x7f050011;
+    public static final int parent=0x7f050012;
+    public static final int register_datepicker=0x7f050013;
+    public static final int register_email=0x7f050014;
+    public static final int register_password=0x7f050015;
+    public static final int register_registerbutton=0x7f050016;
+    public static final int register_username=0x7f050017;
+    public static final int spread=0x7f050018;
+    public static final int spread_inside=0x7f050019;
+    public static final int wrap=0x7f05001a;
   }
   public static final class layout {
     public static final int activity_contacts=0x7f060000;
     public static final int activity_main=0x7f060001;
     public static final int activity_message=0x7f060002;
     public static final int activity_register=0x7f060003;
+    public static final int item_layout=0x7f060004;
   }
   public static final class mipmap {
     public static final int ic_launcher=0x7f070000;
@@ -482,20 +488,27 @@ public final class R {
   }
   public static final class string {
     public static final int Contact_friend=0x7f080000;
-    public static final int Contact_logout=0x7f080001;
-    public static final int Login=0x7f080002;
-    public static final int LoginPass=0x7f080003;
-    public static final int LoginUser=0x7f080004;
-    public static final int Message_message=0x7f080005;
-    public static final int Message_send=0x7f080006;
-    public static final int Register=0x7f080007;
-    public static final int Register_birthdate=0x7f080008;
-    public static final int Register_email=0x7f080009;
-    public static final int Register_firstname=0x7f08000a;
-    public static final int Register_gender=0x7f08000b;
-    public static final int Register_lastname=0x7f08000c;
-    public static final int Register_notifications=0x7f08000d;
-    public static final int app_name=0x7f08000e;
+    public static final int Contact_label=0x7f080001;
+    public static final int Contact_logout=0x7f080002;
+    public static final int Login=0x7f080003;
+    public static final int LoginPass=0x7f080004;
+    public static final int LoginUser=0x7f080005;
+    public static final int Message_message=0x7f080006;
+    public static final int Message_send=0x7f080007;
+    public static final int Names_bane=0x7f080008;
+    public static final int Names_dejan=0x7f080009;
+    public static final int Names_dusan=0x7f08000a;
+    public static final int Names_marko=0x7f08000b;
+    public static final int Names_nikola=0x7f08000c;
+    public static final int Names_stevan=0x7f08000d;
+    public static final int Register=0x7f08000e;
+    public static final int Register_birthdate=0x7f08000f;
+    public static final int Register_email=0x7f080010;
+    public static final int Register_firstname=0x7f080011;
+    public static final int Register_gender=0x7f080012;
+    public static final int Register_lastname=0x7f080013;
+    public static final int Register_notifications=0x7f080014;
+    public static final int app_name=0x7f080015;
   }
   public static final class style {
     public static final int AppTheme=0x7f090000;

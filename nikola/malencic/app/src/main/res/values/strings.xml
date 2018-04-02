@@ -18,4 +18,12 @@
     <string name="Contact_logout">Logout</string>
     <string name="Message_message">message text</string>
     <string name="Message_send">Send</string>
+    <string name="Names_nikola">Nikola</string>
+    <string name="Names_marko">Marko</string>
+    <string name="Names_dusan">Dusan</string>
+    <string name="Names_stevan">Stevan</string>
+    <string name="Names_bane">Bane</string>
+    <string name="Names_dejan">Dejan</string>
+    <string name="Contact_label">My chat list</string>
+
 </resources>

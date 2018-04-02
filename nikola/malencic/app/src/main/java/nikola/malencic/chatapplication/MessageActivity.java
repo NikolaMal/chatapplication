@@ -9,12 +9,15 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MessageActivity extends Activity implements View.OnClickListener{
     EditText messageText;
     Button logoutButton;
     Button sendButton;
+    TextView labelText;
+
 
 
     @Override
@@ -24,7 +27,14 @@ public class MessageActivity extends Activity implements View.OnClickListener{
         messageText = (EditText) findViewById(R.id.message_messagetext);
         logoutButton = (Button) findViewById(R.id.message_logout);
         sendButton = (Button) findViewById(R.id.message_sendbutton);
+        labelText = (TextView) findViewById(R.id.message_label);
         sendButton.setEnabled(false);
+
+        Intent contact_intent = getIntent();
+
+        labelText.setText(contact_intent.getStringExtra("clickedContactName"));
+
+
 
 
 

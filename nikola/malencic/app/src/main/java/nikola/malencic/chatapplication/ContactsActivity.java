@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class ContactsActivity extends Activity implements View.OnClickListener {
 
-    TextView friendText;
     Button logoutButton;
 
     @Override
@@ -17,23 +17,31 @@ public class ContactsActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
         logoutButton = (Button) findViewById(R.id.contact_logoutbutton);
-        friendText = (TextView) findViewById(R.id.contact_friendtext);
-        friendText.setOnClickListener(this);
+
         logoutButton.setOnClickListener(this);
+
+        ListView list = (ListView) findViewById(R.id.contact_list);
+
+
+        ContactAdapter adapter = new ContactAdapter(this);
+
+        list.setAdapter(adapter);
+
+        adapter.addContact(new Contact( getResources().getString(R.string.Names_nikola).toString()));
+        adapter.addContact(new Contact( getResources().getString(R.string.Names_bane).toString()));
+        adapter.addContact(new Contact( getResources().getString(R.string.Names_dejan).toString()));
+        adapter.addContact(new Contact( getResources().getString(R.string.Names_dusan).toString()));
+        adapter.addContact(new Contact( getResources().getString(R.string.Names_stevan).toString()));
+
+
 
     }
 
     @Override
     public void onClick(View view){
-        switch(view.getId()){
-            case R.id.contact_friendtext:
-                Intent messageIntent = new Intent(ContactsActivity.this, MessageActivity.class);
-                startActivity(messageIntent);
-                break;
-            case R.id.contact_logoutbutton:
-                Intent logoutIntent = new Intent(ContactsActivity.this, MainActivity.class);
-                startActivity(logoutIntent);
-                break;
+        if(view.getId() == R.id.contact_logoutbutton){
+            Intent intent = new Intent (ContactsActivity.this, MainActivity.class);
+            startActivity(intent);
 
         }
     }

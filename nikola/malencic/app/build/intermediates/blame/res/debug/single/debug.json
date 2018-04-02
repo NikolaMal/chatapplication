@@ -24,8 +24,16 @@
         "source": "/home/mace/AndroidStudioProjects/nikola/malencic/app/src/main/res/drawable/ic_launcher_background.xml"
     },
     {
+        "merged": "/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/res/merged/debug/drawable_ic_send_black_24dp.png.flat",
+        "source": "/home/mace/AndroidStudioProjects/nikola/malencic/app/src/main/res/drawable/ic_send_black_24dp.png"
+    },
+    {
         "merged": "/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/res/merged/debug/layout_activity_contacts.xml.flat",
         "source": "/home/mace/AndroidStudioProjects/nikola/malencic/app/src/main/res/layout/activity_contacts.xml"
+    },
+    {
+        "merged": "/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/res/merged/debug/layout_item_layout.xml.flat",
+        "source": "/home/mace/AndroidStudioProjects/nikola/malencic/app/src/main/res/layout/item_layout.xml"
     },
     {
         "merged": "/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat",
