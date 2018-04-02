@@ -7,18 +7,19 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MessageActivity extends Activity implements View.OnClickListener{
-    EditText messageText;
-    Button logoutButton;
-    Button sendButton;
-    TextView labelText;
-
-
+    private EditText messageText;
+    private Button logoutButton;
+    private Button sendButton;
+    private TextView labelText;
+    MessageAdapter myAdapter = new MessageAdapter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +35,25 @@ public class MessageActivity extends Activity implements View.OnClickListener{
 
         labelText.setText(contact_intent.getStringExtra("clickedContactName"));
 
+        ListView messageList = (ListView) findViewById(R.id.message_list);
 
+        messageList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
+                myAdapter.removeMessage(position);
+                return true;
+            }});
 
+        messageList.setAdapter(myAdapter);
+
+        myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_other).toString(), getResources().getString(R.string.Misc_dummy)));
+        myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_other).toString(), getResources().getString(R.string.Misc_dummy)));
+        myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_user).toString(), getResources().getString(R.string.Misc_dummy)));
+        myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_other).toString(), getResources().getString(R.string.Misc_dummy)));
+        myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_user).toString(), getResources().getString(R.string.Misc_dummy)));
+        myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_user).toString(), getResources().getString(R.string.Misc_dummy)));
+        myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_other).toString(), getResources().getString(R.string.Misc_dummy)));
 
         messageText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -74,8 +91,10 @@ public class MessageActivity extends Activity implements View.OnClickListener{
                 startActivity(logoutIntent);
                 break;
             case R.id.message_sendbutton:
+                myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_user).toString(), messageText.getText().toString() ));
                 Toast.makeText(MessageActivity.this, "Message sent!",
                         Toast.LENGTH_LONG).show();
+                break;
         }
     }
 }

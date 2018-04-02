@@ -8,13 +8,11 @@ import android.widget.ImageView;
 
 public class Contact {
 
-    String initial;
-    String name;
-
+    private String initial;
+    private String name;
 
     public Contact( String name){
         this.name = name;
-
         String firstChar = name.substring(0, 1).toUpperCase();
         this.initial = firstChar;
     }

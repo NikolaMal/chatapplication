@@ -20,6 +20,10 @@
         "source": "/home/mace/AndroidStudioProjects/nikola/malencic/app/src/main/res/drawable-v24/ic_launcher_foreground.xml"
     },
     {
+        "merged": "/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/res/merged/debug/layout_message_layout.xml.flat",
+        "source": "/home/mace/AndroidStudioProjects/nikola/malencic/app/src/main/res/layout/message_layout.xml"
+    },
+    {
         "merged": "/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/res/merged/debug/drawable_ic_launcher_background.xml.flat",
         "source": "/home/mace/AndroidStudioProjects/nikola/malencic/app/src/main/res/drawable/ic_launcher_background.xml"
     },

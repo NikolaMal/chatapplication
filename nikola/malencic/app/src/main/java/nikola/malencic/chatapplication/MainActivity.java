@@ -11,11 +11,11 @@ import android.widget.EditText;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
-    EditText username;
-    EditText password;
+    private EditText username;
+    private EditText password;
 
-    Button LoginButton;
-    Button RegisterButton;
+    private Button LoginButton;
+    private Button RegisterButton;
 
 
     @Override
@@ -75,12 +75,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     if (password.getText().toString().length() >= 6){
                         LoginButton.setEnabled(true);
                     }
-
                     else {
                         LoginButton.setEnabled(false);
                     }
                 }
-
                 else {
                     LoginButton.setEnabled(false);
                 }
@@ -88,8 +86,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             }
         });
-
-
 
     }
 

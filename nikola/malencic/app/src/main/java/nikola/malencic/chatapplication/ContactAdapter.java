@@ -80,9 +80,8 @@ public class ContactAdapter extends BaseAdapter implements View.OnClickListener{
         ViewHolder holder = (ViewHolder) convertView.getTag();
         holder.initial.setText(contact.getInitial());
         Random rand = new Random();
-        holder.initial.setBackgroundColor(Color.argb(255, rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+        holder.initial.setBackgroundColor(Color.rgb( rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
         holder.name.setText(contact.getName());
-
 
         return convertView;
     }

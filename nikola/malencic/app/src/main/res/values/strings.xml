@@ -25,5 +25,8 @@
     <string name="Names_bane">Bane</string>
     <string name="Names_dejan">Dejan</string>
     <string name="Contact_label">My chat list</string>
+    <string name="Misc_user">User</string>
+    <string name="Misc_other">Other</string>
+    <string name="Misc_dummy">Dummy string</string>
 
 </resources>

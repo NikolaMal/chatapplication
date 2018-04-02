@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class ContactsActivity extends Activity implements View.OnClickListener {
 
-    Button logoutButton;
+    private Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,6 @@ public class ContactsActivity extends Activity implements View.OnClickListener {
 
         ListView list = (ListView) findViewById(R.id.contact_list);
 
-
         ContactAdapter adapter = new ContactAdapter(this);
 
         list.setAdapter(adapter);
@@ -32,9 +31,6 @@ public class ContactsActivity extends Activity implements View.OnClickListener {
         adapter.addContact(new Contact( getResources().getString(R.string.Names_dejan).toString()));
         adapter.addContact(new Contact( getResources().getString(R.string.Names_dusan).toString()));
         adapter.addContact(new Contact( getResources().getString(R.string.Names_stevan).toString()));
-
-
-
     }
 
     @Override

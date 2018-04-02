@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/login_password"
         android:layout_gravity="center"
-
         android:hint="@string/LoginPass"/>
 
     <LinearLayout
@@ -38,8 +37,6 @@
             android:id="@+id/login_loginbutton"
             android:layout_marginRight="25pt"
             android:text="@string/Login"
-
-
             />
 
         <Button
@@ -49,8 +46,6 @@
             android:layout_marginLeft="25pt"
             android:text="@string/Register"
             />
-
-
     </LinearLayout>
 
 </LinearLayout>
