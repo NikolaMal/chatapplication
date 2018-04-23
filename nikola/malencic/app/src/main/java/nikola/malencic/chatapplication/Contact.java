@@ -8,30 +8,35 @@ import android.widget.ImageView;
 
 public class Contact {
 
-    private String initial;
-    private String name;
+    private String contact_id;
+    private String username;
+    private String firstname;
+    private String lastname;
 
-    public Contact( String name){
-        this.name = name;
-        String firstChar = name.substring(0, 1).toUpperCase();
-        this.initial = firstChar;
+    public Contact(String id, String user, String first, String last){
+        this.contact_id = id;
+        this.username = user;
+        this.firstname = first;
+        this.lastname = last;
     }
 
-    String getInitial(){
-        return this.initial;
+    public String getId() {
+        return this.contact_id;
     }
 
-    String getName(){
-        return this.name;
+    public String getUsername(){
+        return this.username;
     }
 
-    void setInitial(String in){
-        this.initial = in;
+    public String getFirstname(){
+        return this.firstname;
     }
 
-    void setName(String name){
-        this.name = name;
+    public String getLastname(){
+        return this.lastname;
     }
-
 
 }
+
+
+

@@ -2,12 +2,14 @@ package nikola.malencic.chatapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -16,6 +18,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private Button LoginButton;
     private Button RegisterButton;
+
+    private ContactDbHelper contactDb_helper;
+
+    private boolean loginOK;
+
+    private static final String PREFS_NAME = "PREFS";
+
+    Contact[] contacts;
 
 
     @Override
@@ -27,6 +37,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         password = (EditText) findViewById(R.id.login_password);
         LoginButton = (Button) findViewById(R.id.login_loginbutton);
         RegisterButton = (Button) findViewById(R.id.login_registerbutton);
+
+        contactDb_helper = new ContactDbHelper(this);
+
+        contacts = contactDb_helper.readContacts();
+
 
         LoginButton.setOnClickListener(this);
         LoginButton.setEnabled(false);
@@ -44,6 +59,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             @Override
             public void afterTextChanged(Editable editable) {
+
+
 
                 if (username.getText().toString().length() != 0) {
                     if (password.getText().toString().length() >= 6) {
@@ -94,9 +111,27 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_loginbutton:
+                boolean pass = false;
+                if(contacts == null){
+                    Toast.makeText(MainActivity.this, "User list is empty! Please register.", Toast.LENGTH_LONG).show();
+                    break;
+                }
+                for(int i=0;i<contacts.length;i++){
+                    if(contacts[i].getUsername().equals(username.getText().toString())){
+                        pass = true;
+                        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+                        editor.putString("logged_user_id", contacts[i].getId());
+                        editor.apply();
+                        Intent loginIntent = new Intent(MainActivity.this, ContactsActivity.class);
+                        this.startActivity(loginIntent);
+                        break;
+                    }
+                }
 
-                Intent loginIntent = new Intent(MainActivity.this, ContactsActivity.class);
-                this.startActivity(loginIntent);
+                if(!pass){
+                    Toast.makeText(MainActivity.this, "Username not found. Please register.", Toast.LENGTH_LONG).show();
+                }
+
                 break;
 
             case R.id.login_registerbutton:

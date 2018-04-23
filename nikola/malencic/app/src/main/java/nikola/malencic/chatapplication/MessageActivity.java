@@ -3,6 +3,7 @@ package nikola.malencic.chatapplication;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,7 +20,19 @@ public class MessageActivity extends Activity implements View.OnClickListener{
     private Button logoutButton;
     private Button sendButton;
     private TextView labelText;
+    private SharedPreferences prefs;
+    private static final String PREFS_NAME = "PREFS";
+    private ContactDbHelper contactDb_helper;
     MessageAdapter myAdapter = new MessageAdapter(this);
+    private String sender_id;
+    private String receiver_id;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Message[] messages = contactDb_helper.readMessages(sender_id, receiver_id);
+        myAdapter.update(messages);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +43,16 @@ public class MessageActivity extends Activity implements View.OnClickListener{
         sendButton = (Button) findViewById(R.id.message_sendbutton);
         labelText = (TextView) findViewById(R.id.message_label);
         sendButton.setEnabled(false);
+        prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        contactDb_helper = new ContactDbHelper(this);
+
+        sender_id = prefs.getString("logged_user_id", null);
+        receiver_id = prefs.getString("receiver_id", null);
 
         Intent contact_intent = getIntent();
+
+        Message wlcm = new Message(null, sender_id, receiver_id, "Hello");
+        contactDb_helper.insertMessage(wlcm);
 
         labelText.setText(contact_intent.getStringExtra("clickedContactName"));
 
@@ -47,13 +68,7 @@ public class MessageActivity extends Activity implements View.OnClickListener{
 
         messageList.setAdapter(myAdapter);
 
-        myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_other).toString(), getResources().getString(R.string.Misc_dummy)));
-        myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_other).toString(), getResources().getString(R.string.Misc_dummy)));
-        myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_user).toString(), getResources().getString(R.string.Misc_dummy)));
-        myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_other).toString(), getResources().getString(R.string.Misc_dummy)));
-        myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_user).toString(), getResources().getString(R.string.Misc_dummy)));
-        myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_user).toString(), getResources().getString(R.string.Misc_dummy)));
-        myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_other).toString(), getResources().getString(R.string.Misc_dummy)));
+
 
         messageText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -91,7 +106,7 @@ public class MessageActivity extends Activity implements View.OnClickListener{
                 startActivity(logoutIntent);
                 break;
             case R.id.message_sendbutton:
-                myAdapter.addMessage(new Message(getResources().getString(R.string.Misc_user).toString(), messageText.getText().toString() ));
+                contactDb_helper.insertMessage(new Message(null, sender_id, receiver_id, messageText.getText().toString()));
                 Toast.makeText(MessageActivity.this, "Message sent!",
                         Toast.LENGTH_LONG).show();
                 break;

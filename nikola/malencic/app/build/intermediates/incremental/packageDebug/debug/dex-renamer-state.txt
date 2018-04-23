@@ -1,4 +1,4 @@
-#Mon Apr 02 19:49:53 CEST 2018
+#Mon Apr 23 15:40:59 CEST 2018
 path.1=classes.dex
 path.0=classes.dex
 renamed.5=classes6.dex
@@ -7,12 +7,12 @@ renamed.3=classes4.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
-base.5=/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/transforms/dexMerger/debug/33
-base.4=/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/transforms/dexMerger/debug/31
-base.3=/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/transforms/dexMerger/debug/34
-base.2=/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/transforms/dexMerger/debug/32
-base.1=/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/transforms/dexMerger/debug/35
-base.0=/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/transforms/dexMerger/debug/30
+base.5=/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/transforms/dexMerger/debug/50
+base.4=/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/transforms/dexMerger/debug/53
+base.3=/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/transforms/dexMerger/debug/51
+base.2=/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/transforms/dexMerger/debug/54
+base.1=/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/transforms/dexMerger/debug/49
+base.0=/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/transforms/dexMerger/debug/52
 path.5=classes.dex
 path.4=classes.dex
 path.3=classes.dex

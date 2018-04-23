@@ -28,5 +28,5 @@
     <string name="Misc_user">User</string>
     <string name="Misc_other">Other</string>
     <string name="Misc_dummy">Dummy string</string>
-
+    <string name="ContactDb_dbname">contacts.db</string>
 </resources>

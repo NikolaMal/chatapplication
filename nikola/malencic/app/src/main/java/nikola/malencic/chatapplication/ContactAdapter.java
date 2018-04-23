@@ -2,6 +2,7 @@ package nikola.malencic.chatapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ public class ContactAdapter extends BaseAdapter implements View.OnClickListener{
 
     private Context aContext;
     private ArrayList<Contact> contacts;
+    private SharedPreferences.Editor editor;
+    private static final String PREFS_NAME = "PREFS";
 
     String whichContactClicked;
 
@@ -29,10 +32,26 @@ public class ContactAdapter extends BaseAdapter implements View.OnClickListener{
     public ContactAdapter(Context context){
         aContext = context;
         contacts = new ArrayList<Contact>();
+        editor = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit();
     }
 
     public void addContact (Contact contact){
         contacts.add(contact);
+        notifyDataSetChanged();
+    }
+
+    public void removeContact(int position){
+        contacts.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public void update(Contact[] new_contacts){
+        contacts.clear();
+        if(new_contacts != null){
+            for(Contact contact : new_contacts){
+                contacts.add(contact);
+            }
+        }
         notifyDataSetChanged();
     }
 
@@ -78,10 +97,10 @@ public class ContactAdapter extends BaseAdapter implements View.OnClickListener{
 
         Contact contact = (Contact) getItem(position);
         ViewHolder holder = (ViewHolder) convertView.getTag();
-        holder.initial.setText(contact.getInitial());
+        holder.initial.setText(contact.getFirstname().substring(0, 1).toUpperCase());
         Random rand = new Random();
         holder.initial.setBackgroundColor(Color.rgb( rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
-        holder.name.setText(contact.getName());
+        holder.name.setText(contact.getFirstname());
 
         return convertView;
     }
@@ -89,9 +108,12 @@ public class ContactAdapter extends BaseAdapter implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         int clickedPosition = Integer.parseInt(v.getTag().toString());
-        whichContactClicked = contacts.get(clickedPosition).getName();
+        whichContactClicked = contacts.get(clickedPosition).getFirstname();
 
         if(v.getId() == R.id.itemSend){
+
+            editor.putString("receiver_id", null);
+            editor.apply();
             Intent intent = new Intent(aContext.getApplicationContext(), MessageActivity.class);
             intent.putExtra("clickedContactName", whichContactClicked);
             aContext.startActivity(intent);

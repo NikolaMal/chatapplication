@@ -1,6 +1,7 @@
 package nikola.malencic.chatapplication;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,14 +20,26 @@ public class MessageAdapter extends BaseAdapter {
 
     private Context aContext;
     private ArrayList<Message> messages;
+    private static final String PREFS_NAME = "PREFS";
 
     public MessageAdapter(Context context){
         aContext = context;
         messages = new ArrayList<Message>();
+
     }
 
     public void addMessage(Message msg){
         messages.add(msg);
+        notifyDataSetChanged();
+    }
+
+    public void update(Message[] new_messages) {
+        messages.clear();
+        if (new_messages != null) {
+            for (Message message : new_messages) {
+                messages.add(message);
+            }
+        }
         notifyDataSetChanged();
     }
 
@@ -74,16 +87,17 @@ public class MessageAdapter extends BaseAdapter {
         Message message = (Message) getItem(position);
         MessageHolder holder = (MessageHolder) convertView.getTag();
 
-        holder.msg.setText(message.getMsg());
-        holder.name = message.getName();
+        holder.msg.setText(message.getMessageText());
+        holder.id = message.getSenderId();
+        SharedPreferences prefs = aContext.getSharedPreferences(PREFS_NAME, aContext.MODE_PRIVATE);
 
-        if(holder.name.contentEquals("User")){
+        if(holder.id == prefs.getString("logged_user_id", null)){
             holder.msg.setGravity(Gravity.END|Gravity.CENTER);
             holder.msg.setTextColor(Color.rgb(0, 0, 0));
             holder.msg.setBackgroundColor(Color.rgb(170, 170, 170));
         }
 
-        else if (holder.name.contentEquals("Other")){
+        else {
             holder.msg.setGravity(Gravity.START|Gravity.CENTER);
             holder.msg.setTextColor(Color.rgb(0, 0, 0));
             holder.msg.setBackgroundColor(Color.rgb(255, 255, 255));
@@ -94,6 +108,7 @@ public class MessageAdapter extends BaseAdapter {
 
     public class MessageHolder {
         public TextView msg = null;
-        public String name = null;
+        public String id;
+
     }
 }

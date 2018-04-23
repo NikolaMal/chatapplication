@@ -10,32 +10,42 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
 
 public class RegisterActivity extends Activity implements TextWatcher{
 
-    Button registerButton;
-    DatePicker birthDatePicker;
-    EditText userEditText;
-    EditText passEditText;
-    EditText emailEditText;
+    private Button registerButton;
+    private DatePicker birthDatePicker;
+    private EditText userEditText;
+    private EditText passEditText;
+    private EditText emailEditText;
+    private EditText firstNameEditText;
+    private EditText lastNameEditText;
 
-    boolean userOK = false;
-    boolean passOK = false;
-    boolean emailOK = false;
+    private boolean userOK = false;
+    private boolean passOK = false;
+    private boolean emailOK = false;
+
+
+    private ContactDbHelper contactDb_helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        contactDb_helper = new ContactDbHelper(this);
+
         registerButton = (Button) findViewById(R.id.register_registerbutton);
         birthDatePicker = (DatePicker) findViewById(R.id.register_datepicker);
         userEditText = (EditText) findViewById(R.id.register_username);
         passEditText = (EditText) findViewById(R.id.register_password);
         emailEditText = (EditText) findViewById(R.id.register_email);
+        firstNameEditText = (EditText) findViewById(R.id.register_firstname);
+        lastNameEditText = (EditText) findViewById(R.id.register_lastname);
 
         userEditText.addTextChangedListener(this);
         passEditText.addTextChangedListener(this);
@@ -45,8 +55,16 @@ public class RegisterActivity extends Activity implements TextWatcher{
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerButtonIntent = new Intent(RegisterActivity.this, ContactsActivity.class);
+                Contact newContact = new Contact(null, userEditText.getText().toString()
+                                        ,firstNameEditText.getText().toString()
+                                        , lastNameEditText.getText().toString());
+
+                contactDb_helper.insertContact(newContact);
+
+
+                Intent registerButtonIntent = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(registerButtonIntent);
+
             }
         });
 
