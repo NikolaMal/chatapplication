@@ -95,27 +95,31 @@ public class ContactAdapter extends BaseAdapter implements View.OnClickListener{
 
         }
 
-        Contact contact = (Contact) getItem(position);
-        ViewHolder holder = (ViewHolder) convertView.getTag();
-        holder.initial.setText(contact.getFirstname().substring(0, 1).toUpperCase());
-        Random rand = new Random();
-        holder.initial.setBackgroundColor(Color.rgb( rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
-        holder.name.setText(contact.getFirstname());
 
+        Contact contact = (Contact) getItem(position);
+        if(contact != null) {
+            ViewHolder holder = (ViewHolder) convertView.getTag();
+
+                holder.initial.setText(contact.getUsername().substring(0, 1).toUpperCase());
+
+            Random rand = new Random();
+            holder.initial.setBackgroundColor(Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+            holder.name.setText(contact.getUsername());
+            holder.image.setTag(contact.getUsername());
+        }
         return convertView;
     }
 
     @Override
     public void onClick(View v) {
-        int clickedPosition = Integer.parseInt(v.getTag().toString());
-        whichContactClicked = contacts.get(clickedPosition).getFirstname();
+        //int clickedPosition = Integer.parseInt(v.getTag().toString());
+        //whichContactClicked = contacts.get(clickedPosition).getUsername();
 
         if(v.getId() == R.id.itemSend){
-
-            editor.putString("receiver_id", null);
+            editor.putString("clicked_contact", v.getTag().toString());
             editor.apply();
             Intent intent = new Intent(aContext.getApplicationContext(), MessageActivity.class);
-            intent.putExtra("clickedContactName", whichContactClicked);
+            //intent.putExtra("clickedContactName", whichContactClicked);
             aContext.startActivity(intent);
         }
 

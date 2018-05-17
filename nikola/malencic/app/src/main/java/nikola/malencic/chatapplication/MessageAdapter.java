@@ -25,7 +25,6 @@ public class MessageAdapter extends BaseAdapter {
     public MessageAdapter(Context context){
         aContext = context;
         messages = new ArrayList<Message>();
-
     }
 
     public void addMessage(Message msg){
@@ -60,7 +59,6 @@ public class MessageAdapter extends BaseAdapter {
         try {
             msg = messages.get(position);
         }
-
         catch (IndexOutOfBoundsException e){
             e.printStackTrace();
         }
@@ -80,35 +78,32 @@ public class MessageAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.message_layout, null);
             MessageHolder holder = new MessageHolder();
             holder.msg = (TextView) convertView.findViewById(R.id.message_item);
-
             convertView.setTag(holder);
         }
 
         Message message = (Message) getItem(position);
-        MessageHolder holder = (MessageHolder) convertView.getTag();
+        if(message !=null) {
+            MessageHolder holder = (MessageHolder) convertView.getTag();
 
-        holder.msg.setText(message.getMessageText());
-        holder.id = message.getSenderId();
-        SharedPreferences prefs = aContext.getSharedPreferences(PREFS_NAME, aContext.MODE_PRIVATE);
+            holder.msg.setText(message.getMessageText());
+            holder.name = message.getSenderId();
+            SharedPreferences prefs = aContext.getSharedPreferences(PREFS_NAME, aContext.MODE_PRIVATE);
 
-        if(holder.id == prefs.getString("logged_user_id", null)){
-            holder.msg.setGravity(Gravity.END|Gravity.CENTER);
-            holder.msg.setTextColor(Color.rgb(0, 0, 0));
-            holder.msg.setBackgroundColor(Color.rgb(170, 170, 170));
+            if (holder.name.equals(prefs.getString("logged_username", null)) ) {
+                holder.msg.setGravity(Gravity.END | Gravity.CENTER);
+                holder.msg.setTextColor(Color.rgb(0, 0, 0));
+                holder.msg.setBackgroundColor(Color.rgb(170, 170, 170));
+            } else {
+                holder.msg.setGravity(Gravity.START | Gravity.CENTER);
+                holder.msg.setTextColor(Color.rgb(0, 0, 0));
+                holder.msg.setBackgroundColor(Color.rgb(255, 255, 255));
+            }
         }
-
-        else {
-            holder.msg.setGravity(Gravity.START|Gravity.CENTER);
-            holder.msg.setTextColor(Color.rgb(0, 0, 0));
-            holder.msg.setBackgroundColor(Color.rgb(255, 255, 255));
-        }
-
         return convertView;
     }
 
     public class MessageHolder {
         public TextView msg = null;
-        public String id;
-
+        public String name;
     }
 }

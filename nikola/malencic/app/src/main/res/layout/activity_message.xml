@@ -19,12 +19,18 @@
             android:gravity="left|center"
             android:textSize="20dp"
             android:paddingLeft="10dp"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Contact_logout"
-        android:id="@+id/message_logout"
-        android:layout_gravity="end"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Contact_refresh"
+            android:id="@+id/message_refresh"/>
+         <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Contact_logout"
+            android:id="@+id/message_logout"
+            android:layout_gravity="end"/>
 
     </LinearLayout>
 

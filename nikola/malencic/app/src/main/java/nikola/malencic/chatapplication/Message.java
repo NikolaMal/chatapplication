@@ -6,29 +6,22 @@ package nikola.malencic.chatapplication;
 
 public class Message {
 
-    private String id;
-    private String sender_id;
-    private String receiver_id;
+    private String sender;
     private String messageText;
 
-    public Message(String id, String sender_id, String receiver_id, String msg){
-        this.id = id;
-        this.sender_id = sender_id;
-        this.receiver_id = receiver_id;
-        this.messageText = msg;
+    public Message(String sender, String txt){
+
+        this.sender = sender;
+        this.messageText = txt;
     }
 
-    public String getId(){
-        return this.id;
-    }
+
 
     public String getSenderId(){
-        return this.sender_id;
+        return this.sender;
     }
 
-    public String getReceiverId(){
-        return this.receiver_id;
-    }
+
 
     public String getMessageText(){
         return this.messageText;

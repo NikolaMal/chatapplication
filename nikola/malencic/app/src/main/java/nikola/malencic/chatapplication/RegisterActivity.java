@@ -2,7 +2,9 @@ package nikola.malencic.chatapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
@@ -12,6 +14,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -29,15 +35,20 @@ public class RegisterActivity extends Activity implements TextWatcher{
     private boolean passOK = false;
     private boolean emailOK = false;
 
+    private HTTPHelper http_helper;
+    private Handler handler;
 
-    private ContactDbHelper contactDb_helper;
+    private static final String BASE_URL = "http://18.205.194.168:80";
+    private static final String REGISTER_URL = BASE_URL + "/register";
+    private static final String PREFS_NAME = "PREFS";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        contactDb_helper = new ContactDbHelper(this);
 
         registerButton = (Button) findViewById(R.id.register_registerbutton);
         birthDatePicker = (DatePicker) findViewById(R.id.register_datepicker);
@@ -51,19 +62,54 @@ public class RegisterActivity extends Activity implements TextWatcher{
         passEditText.addTextChangedListener(this);
         emailEditText.addTextChangedListener(this);
 
+        handler = new Handler();
+        http_helper = new HTTPHelper();
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Contact newContact = new Contact(null, userEditText.getText().toString()
-                                        ,firstNameEditText.getText().toString()
-                                        , lastNameEditText.getText().toString());
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        JSONObject object = new JSONObject();
+                        try {
+                            object.put("username", userEditText.getText().toString());
+                            object.put("password", passEditText.getText().toString());
+                            object.put("email", emailEditText.getText().toString());
 
-                contactDb_helper.insertContact(newContact);
+                            final boolean response = http_helper.registerOnServer(RegisterActivity.this, REGISTER_URL, object);
+
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if(response) {
+                                        Toast.makeText(RegisterActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+
+                                    else {
+                                        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                                        Toast.makeText(RegisterActivity.this, prefs.getString("register_error", null), Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            });
 
 
-                Intent registerButtonIntent = new Intent(RegisterActivity.this, MainActivity.class);
-                startActivity(registerButtonIntent);
+
+                        } catch (JSONException e){
+                            e.printStackTrace();
+
+                        } catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
+
+
+
 
             }
         });

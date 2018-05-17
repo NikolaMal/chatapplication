@@ -1,4 +1,4 @@
-#Mon Apr 23 15:23:32 CEST 2018
-base.0=/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/transforms/dexMerger/debug/48
+#Thu May 17 13:20:12 CEST 2018
+base.0=/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/transforms/dexMerger/debug/105
 path.0=classes.dex
 renamed.0=classes.dex

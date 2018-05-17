@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -15,14 +16,29 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 public class MessageActivity extends Activity implements View.OnClickListener{
     private EditText messageText;
     private Button logoutButton;
+    private Button refreshButton;
     private Button sendButton;
     private TextView labelText;
     private SharedPreferences prefs;
+
     private static final String PREFS_NAME = "PREFS";
-    private ContactDbHelper contactDb_helper;
+    private static final String BASE_URL = "http://18.205.194.168:80";
+    private static final String LOGOUT_URL = BASE_URL + "/logout";
+    private static final String POST_MESSAGE_URL = BASE_URL + "/message";
+    private static final String GET_MESSAGE_URL = BASE_URL + "/message/";
+
+    private HTTPHelper http_helper;
+    private Handler handler;
+    private String receiver;
     MessageAdapter myAdapter = new MessageAdapter(this);
     private String sender_id;
     private String receiver_id;
@@ -30,8 +46,43 @@ public class MessageActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onResume() {
         super.onResume();
-        Message[] messages = contactDb_helper.readMessages(sender_id, receiver_id);
-        myAdapter.update(messages);
+        new Thread(new Runnable() {
+            Message[] messages;
+            @Override
+            public void run() {
+                try {
+                    final JSONArray array = http_helper.getMessagesFromServer(MessageActivity.this, GET_MESSAGE_URL + receiver);
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(array !=null) {
+                                JSONObject temp;
+                                messages = new Message[array.length()];
+
+                                for (int i = 0; i < array.length(); i++) {
+                                    try {
+                                        temp = array.getJSONObject(i);
+                                        messages[i] = new Message(temp.getString("sender"), temp.getString("data"));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                myAdapter.update(messages);
+                            }
+                            else {
+                                Toast.makeText(MessageActivity.this, prefs.getString("getMessages_error", null), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                } catch (JSONException e){
+                    e.printStackTrace();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -41,20 +92,17 @@ public class MessageActivity extends Activity implements View.OnClickListener{
         messageText = (EditText) findViewById(R.id.message_messagetext);
         logoutButton = (Button) findViewById(R.id.message_logout);
         sendButton = (Button) findViewById(R.id.message_sendbutton);
+        refreshButton = (Button) findViewById(R.id.message_refresh);
         labelText = (TextView) findViewById(R.id.message_label);
         sendButton.setEnabled(false);
         prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        contactDb_helper = new ContactDbHelper(this);
 
-        sender_id = prefs.getString("logged_user_id", null);
-        receiver_id = prefs.getString("receiver_id", null);
+        http_helper = new HTTPHelper();
+        handler = new Handler();
 
-        Intent contact_intent = getIntent();
+        receiver = prefs.getString("clicked_contact", null);
 
-        Message wlcm = new Message(null, sender_id, receiver_id, "Hello");
-        contactDb_helper.insertMessage(wlcm);
-
-        labelText.setText(contact_intent.getStringExtra("clickedContactName"));
+        labelText.setText(receiver);
 
         ListView messageList = (ListView) findViewById(R.id.message_list);
 
@@ -96,20 +144,112 @@ public class MessageActivity extends Activity implements View.OnClickListener{
 
         logoutButton.setOnClickListener(this);
         sendButton.setOnClickListener(this);
+        refreshButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view){
         switch (view.getId()){
             case R.id.message_logout:
-                Intent logoutIntent = new Intent(MessageActivity.this, MainActivity.class);
-                startActivity(logoutIntent);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            final boolean response = http_helper.logoutFromServer(MessageActivity.this, LOGOUT_URL);
+
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if(response){
+                                        Toast.makeText(MessageActivity.this, "Logged out!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(MessageActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+
+                                    else {
+                                        Toast.makeText(MessageActivity.this, prefs.getString("logout_error", null), Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            });
+                        } catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
                 break;
             case R.id.message_sendbutton:
-                contactDb_helper.insertMessage(new Message(null, sender_id, receiver_id, messageText.getText().toString()));
-                Toast.makeText(MessageActivity.this, "Message sent!",
-                        Toast.LENGTH_LONG).show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            JSONObject object = new JSONObject();
+                            object.put("receiver",  receiver);
+                            object.put("data", messageText.getText().toString());
+
+                            final boolean response = http_helper.sendMessageToServer(MessageActivity.this, POST_MESSAGE_URL, object);
+
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if(response){
+                                        Toast.makeText(MessageActivity.this, "Message sent!", Toast.LENGTH_SHORT).show();
+
+                                    }
+
+                                    else {
+                                        Toast.makeText(MessageActivity.this, prefs.getString("sendMessage_error", null), Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            });
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        } catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
                 break;
+
+            case R.id.message_refresh:
+                new Thread(new Runnable() {
+                    Message[] messages;
+                    @Override
+                    public void run() {
+                        try {
+                            final JSONArray array = http_helper.getMessagesFromServer(MessageActivity.this, GET_MESSAGE_URL + receiver);
+
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if(array !=null) {
+                                        JSONObject temp;
+                                        messages = new Message[array.length()];
+
+                                        for (int i = 0; i < array.length(); i++) {
+                                            try {
+                                                temp = array.getJSONObject(i);
+                                                messages[i] = new Message(temp.getString("sender"), temp.getString("data"));
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                        myAdapter.update(messages);
+                                    }
+                                    else {
+                                        Toast.makeText(MessageActivity.this, prefs.getString("getMessages_error", null), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        } catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
         }
     }
 }
