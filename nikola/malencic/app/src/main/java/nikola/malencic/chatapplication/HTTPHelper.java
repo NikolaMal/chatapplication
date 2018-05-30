@@ -309,5 +309,38 @@ public class HTTPHelper {
         }
     }
 
+    public boolean getUnreadMessageBool(Context context, String URL) throws IOException, JSONException{
+        HttpURLConnection connection;
+        java.net.URL url = new URL(URL);
+
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String sessionId = prefs.getString("sessionId", null);
+
+        connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("sessionid", sessionId);
+
+        connection.setReadTimeout(10000);
+        connection.setConnectTimeout(10000);
+
+        try {
+            connection.connect();
+        } catch (IOException e){
+            e.printStackTrace();
+
+        }
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        Boolean response = Boolean.valueOf(reader.readLine());
+
+        reader.close();
+
+        connection.disconnect();
+
+        return response;
+
+
+    }
+
 
 }

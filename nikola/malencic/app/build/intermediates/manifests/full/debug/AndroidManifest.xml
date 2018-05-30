@@ -29,6 +29,12 @@
         <activity android:name="nikola.malencic.chatapplication.RegisterActivity" />
         <activity android:name="nikola.malencic.chatapplication.ContactsActivity" />
         <activity android:name="nikola.malencic.chatapplication.MessageActivity" />
+
+        <service
+            android:name="nikola.malencic.chatapplication.UnreadMessageService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

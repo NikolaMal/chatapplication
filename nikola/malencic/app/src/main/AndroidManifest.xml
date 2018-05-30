@@ -21,6 +21,12 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ContactsActivity" />
         <activity android:name=".MessageActivity"></activity>
+
+        <service android:name=".UnreadMessageService"
+            android:enabled="true"
+            android:exported="true">
+
+        </service>
     </application>
 
 </manifest>
