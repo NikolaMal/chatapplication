@@ -30,6 +30,8 @@ public class MessageActivity extends Activity implements View.OnClickListener{
     private TextView labelText;
     private SharedPreferences prefs;
 
+    JNIClass jni;
+
     private static final String PREFS_NAME = "PREFS";
     private static final String BASE_URL = "http://18.205.194.168:80";
     private static final String LOGOUT_URL = BASE_URL + "/logout";
@@ -63,7 +65,9 @@ public class MessageActivity extends Activity implements View.OnClickListener{
                                 for (int i = 0; i < array.length(); i++) {
                                     try {
                                         temp = array.getJSONObject(i);
-                                        messages[i] = new Message(temp.getString("sender"), temp.getString("data"));
+                                        String msg = temp.getString("data");
+                                        String decrypted_msg = jni.encryptDecrypt(msg);
+                                        messages[i] = new Message(temp.getString("sender"), decrypted_msg);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -96,6 +100,8 @@ public class MessageActivity extends Activity implements View.OnClickListener{
         labelText = (TextView) findViewById(R.id.message_label);
         sendButton.setEnabled(false);
         prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
+        jni = new JNIClass();
 
         http_helper = new HTTPHelper();
         handler = new Handler();
@@ -185,7 +191,9 @@ public class MessageActivity extends Activity implements View.OnClickListener{
                         try {
                             JSONObject object = new JSONObject();
                             object.put("receiver",  receiver);
-                            object.put("data", messageText.getText().toString());
+                            String msg = messageText.getText().toString();
+                            String cryptedMsg = jni.encryptDecrypt(msg);
+                            object.put("data", cryptedMsg);
 
                             final boolean response = http_helper.sendMessageToServer(MessageActivity.this, POST_MESSAGE_URL, object);
 
@@ -230,7 +238,9 @@ public class MessageActivity extends Activity implements View.OnClickListener{
                                         for (int i = 0; i < array.length(); i++) {
                                             try {
                                                 temp = array.getJSONObject(i);
-                                                messages[i] = new Message(temp.getString("sender"), temp.getString("data"));
+                                                String msg = temp.getString("data");
+                                                String decryptedMsg = jni.encryptDecrypt(msg);
+                                                messages[i] = new Message(temp.getString("sender"), decryptedMsg);
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }

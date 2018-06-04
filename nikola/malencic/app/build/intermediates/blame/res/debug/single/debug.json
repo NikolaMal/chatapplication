@@ -68,12 +68,12 @@
         "source": "/home/mace/AndroidStudioProjects/nikola/malencic/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
     },
     {
-        "merged": "/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "/home/mace/AndroidStudioProjects/nikola/malencic/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
-    },
-    {
         "merged": "/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
         "source": "/home/mace/AndroidStudioProjects/nikola/malencic/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/home/mace/AndroidStudioProjects/nikola/malencic/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
         "merged": "/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",

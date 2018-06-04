@@ -5,33 +5,32 @@
     build-mode="COLD"
     density="xxxhdpi"
     format="10"
-    ir-eligibility="COMPATIBLE"
     plugin-version="3.0.1"
-    timestamp="1527692272338"
+    timestamp="1528129232241"
     token="5396917031535375429"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="363" />
+        duration="0" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="67" />
+        duration="0" />
     <task
         name="verifier"
-        duration="39" />
+        duration="0" />
 
     <artifact
-        location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
-        type="SPLIT" />
+        location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/outputs/apk/debug/app-debug.apk"
+        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1527691901463"
-        verifier="FULL_BUILD_REQUESTED" >
+        timestamp="1528128414871"
+        verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/dep/dependencies.apk"
             type="SPLIT" />
@@ -39,13 +38,7 @@
             location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_1.apk"
             type="SPLIT" />
         <artifact
-            location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
-            type="SPLIT" />
-        <artifact
             location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_2.apk"
-            type="SPLIT" />
-        <artifact
-            location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
             type="SPLIT" />
         <artifact
             location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
@@ -54,16 +47,22 @@
             location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_5.apk"
             type="SPLIT" />
         <artifact
-            location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_7.apk"
+            location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
+            type="SPLIT" />
+        <artifact
+            location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
             type="SPLIT" />
         <artifact
             location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_6.apk"
             type="SPLIT" />
         <artifact
-            location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_8.apk"
+            location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
             type="SPLIT" />
         <artifact
-            location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
+            location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_7.apk"
+            type="SPLIT" />
+        <artifact
+            location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_8.apk"
             type="SPLIT" />
         <artifact
             location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/outputs/apk/debug/app-debug.apk"
@@ -72,11 +71,19 @@
     <build
         build-mode="COLD"
         ir-eligibility="COMPATIBLE"
-        timestamp="1527692272338"
+        timestamp="1528128572515"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
             type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        timestamp="1528129232241"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="/home/mace/AndroidStudioProjects/nikola/malencic/app/build/outputs/apk/debug/app-debug.apk"
+            type="SPLIT_MAIN" />
     </build>
 
 </instant-run>
